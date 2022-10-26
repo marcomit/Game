@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../main.css">
+    <title>Game - Pong</title>
+</head>
+    <body>
+        <header style="align-items: center;">
+            <div class="menu"><a href="../tetris/tetris.html">tetris</a><div></div></div>
+            <div class="menu"><a href="../snake/snake.html">snake</a><div></div></div>
+            <div class="menu active"><a href="../animation/main.html">animation</a><div></div></div>
+            <div class="menu"><a href="#">pong</a><div class="active"></div></div>
+            <div class="menu"><a href="../four in a row/four.html">four in row</a><div></div></div>
+        </header>
+
+        <div style="display: flex; height: 80px; width: 100%;
+        justify-content: space-between;
+        align-items: center;">
+            <a class="btn-back rotate" href="../../main.html"><i class="fa fa-chevron-left"></i></a>
+            <div style="display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-direction: row;">
+                <span class="scoring" style="font-size: 3.5em; width: 200px; text-align: start; margin-right: 20px;" id="score1">00</span>
+                    <div class="dropdown">
+                        <button class="button dropbtn">Player <i class="fa fa-chevron-right"></i></button>
+                        <div class="dropdown-content">
+                            <a onclick="!playing ? mod1() : null" style="--clr:#ff2972;">1</a>
+                            <a onclick="!playing ? mod2() : null" style="--clr:#ff2972;">2</a>
+                        </div>
+                    </div>
+                <span class="scoring" style="font-size: 3.5em; width: 200px; text-align: end; margin-left: 20px;" id="score2">00</span>
+            </div>
+            <div></div>
+        </div>
+        <div class="container noselect">
+            <div style="display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;">
+                <div style="display: flex; flex-direction: row;">
+                    <div style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;">
+                        <button class="button" id="replay" onclick="restart()">RESTART
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                    <div id="container"></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="author">
+                <h1>pong</h1> <span>BY</span><i>Marco Menegazzi</i>
+            </div>
+        </footer>
+    </body>
+    <script src="pong.js"></script>
+</html>
