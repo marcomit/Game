@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game - Snake</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../main.css">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body style="display: flex; align-items:center; justify-content:space-between;">
+    <header style="align-items: center;">
+      <div class="menu"><a href="../tetris/tetris.html">tetris</a><div></div></div>
+      <div class="menu"><a href="#">snake</a><div class="active"></div></div>
+      <div class="menu active"><a href="../animation/main.html">animation</a><div></div></div>
+      <div class="menu"><a href="../pong/pong.html">pong</a><div></div></div>
+      <div class="menu"><a href="../four in a row/four.html">four in row</a><div></div></div>
+    </header>
+
+    <div style="display: flex; height: 80px; width: 100%;
+        justify-content: space-between;
+        align-items: center;">
+      <a class="btn-back rotate" href="../../main.html"><i class="fa fa-chevron-left"></i></a>
+        <div class="vertical" style="align-items: center;">
+            <div style="transform: translateX(-300px);">
+                          <!-- Skin dropdown -->
+            <div class="dropdown" style="--i:0.2;">
+              <button class="button dropbtn">Skin<i class="fa fa-chevron-right"></i></button>
+              <div class="dropdown-content">
+                <a onclick="snake.color=`#f00`; color = 'normal'" style="--clr:#f00;">red</a>
+                <a onclick="snake.color=`#00f`; color = 'normal'" style="--clr:#0f0;">green</a>
+                <a onclick="snake.color=`#00f`; color = 'normal'" style="--clr:#00f;">blue</a>
+                <a onclick="snake.color=`#f0f`; color = 'normal'" style="--clr:#f0f;">magenta</a>
+                <a onclick="snake.color='#c9a0dc'; color = 'normal'" style="--clr:#c9a0dc;">lilla</a>
+                <a onclick="snake.color=`#0ff`; color = 'normal'" style="--clr:#0ff;">skyblue</a>
+                <a onclick="snake.color=`#ff0`; color = 'normal'" style="--clr:#ff0;">yellow</a>
+                <a onclick="snake.color=`#ff0`; color = 'normal'" style="--clr:#fff;">white</a>
+                <a onclick="color = 'default'" style="--clr:#888;">default</a>
+                <p onclick="color = 'multicolor'">multicolor</p>
+              </div>
+            </div>
+            <!-- Display dropdown -->
+            <div class="dropdown" style="--i:1;">
+              <button class="button dropbtn">background <i class="fa fa-chevron-right"></i></button>
+              <div class="dropdown-content">
+                <a onclick="set='grid'" style="--clr:#888;">grid</a>
+                <a onclick="set='draughtboard'" style="--clr:#0f0;">draughtboard</a>
+              </div>
+            </div>
+            <!-- Food dropdown -->
+            <div class="dropdown" style="--i:2.1;">
+              <button class="button dropbtn">fruits <i class="fa fa-chevron-right"></i></button>
+              <div class="dropdown-content">
+                <a onclick="snake.state == 'stopped' ? foodCount = 1 : null" style="--clr:#ff0;">1 fruits</a>
+                <a onclick="snake.state == 'stopped' ? foodCount = 2 : null" style="--clr:#ffcc00;">2 fruits</a>
+                <a onclick="snake.state == 'stopped' ? foodCount = 3 : null" style="--clr:#ff9900;">3 fruits</a>
+                <a onclick="snake.state == 'stopped' ? foodCount = 4 : null" style="--clr:#ff6600;">4 fruits</a>
+                <a onclick="snake.state == 'stopped' ? foodCount = 5 : null" style="--clr:#ff3300;">5 fruits</a>
+              </div>
+            </div>
+            <!-- Walls dropdown -->
+            <div class="dropdown" style="--i:3;">
+              <button class="button dropbtn">walls <i class="fa fa-chevron-right"></i></button>
+              <div class="dropdown-content">
+                <a onclick="snake.state == 'stopped' ? wall = 'block' : null" style="--clr:#333;">block</a>
+                <a onclick="snake.state == 'stopped' ? wall = 'tunnel' : null" style="--clr:#00f;">tunnel</a>
+              </div>
+            </div>
+            <!-- Size dropdown -->
+            <div class="dropdown" style="--i:4;">
+              <button class="button dropbtn">size <i class="fa fa-chevron-right"></i></button>
+              <div class="dropdown-content">
+                <a onclick="snake.state != 'stopped' ? null : sizesmall()" style="--clr:#0ff;">small</a>
+                <a onclick="snake.state != 'stopped' ? null : sizenormal()" style="--clr:#0080ff;">normal</a>
+                <a onclick="snake.state != 'stopped' ? null : sizebig()" style="--clr:#00f;">big</a>
+              </div>
+            </div>
+            </div>
+        </div>
+      <div style="margin-right: 60px;"></div>
+    </div>
+
+    <div class="container noselect">
+        <div class="wrapper">
+          <div style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;">
+            <button class="button" id="replay" onclick="restart()">
+              RESTART
+              <i class="fa fa-refresh"></i>
+            </button>
+          </div>
+          <div id="canvas">
+
+          </div>
+          <div id="ui">
+            <h2>highscore</h2>
+            <span class="scoring" id="maxscore">00</span>
+            <h2>SCORE
+            </h2>
+            <span class="scoring" id="score">00</span>
+          </div>
+        </div>
+    </div>
+    <footer>
+      <div id="author">
+        <h1>SNAKE</h1> <span>BY</span><i>Marco Menegazzi</i>
+      </div>
+    </footer>
+    <script src="snake.js"></script>
+  </body>
+</html>
