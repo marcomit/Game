@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../main.css">
+    <title>Game - Four in a row</title>
+</head>
+<body>
+    <header style="align-items: center;">
+        <div class="menu"><a href="../tetris/tetris.html">tetris</a><div></div></div>
+        <div class="menu"><a href="../snake/snake.html">snake</a><div></div></div>
+        <div class="menu active"><a href="../animation/main.html">animation</a><div></div></div>
+        <div class="menu"><a href="../pong/pong.html">pong</a><div></div></div>
+        <div class="menu"><a href="#">four in row</a><div class="active"></div></div>
+    </header>
+    <div style="display: flex; height: 80px; width: 100%;
+    justify-content: space-between;
+    align-items: center;">
+        <a class="btn-back rotate" href="../../main.html"><i class="fa fa-chevron-left"></i></a>
+        <div style="display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;">
+            <div class="dropdown" style="margin-right: 300px;">
+                <button class="button dropbtn">player a<i class="fa fa-chevron-right"></i></button>
+                <div class="dropdown-content">
+                    <a onclick="color2 != '#f00' ? color1 = '#f00' : null" style="--clr:#f00;">red</a>
+                    <a onclick="color2 != '#0f0' ? color1 = '#0f0' : null" style="--clr:#0f0;">green</a>
+                    <a onclick="color2 != '#00f' ? color1 = '#00f' : null" style="--clr:#00f;">blue</a>
+                    <a onclick="color2 != '#f0f' ? color1 = '#f0f' : null" style="--clr:#f0f;">magenta</a>
+                    <a onclick="color2 != '#c9a0dc' ? color1 = '#c9a0dc' : null" style="--clr:#c9a0dc;">lilla</a>
+                    <a onclick="color2 != '#0ff' ? color1 = '#0ff' : null" style="--clr:#0ff;">skyblue</a>
+                    <a onclick="color2 != '#ff0' ? color1 = '#ff0' : null" style="--clr:#ff0;">yellow</a>
+                    <a onclick="color2 != '#fff' ? color1 = '#fff' : null" style="--clr:#fff;">white</a>
+                    <a onclick="color2 != '#000' ? color1 = '#000' : null" style="--clr:#000;">black</a>
+                </div>
+            </div>
+            <div class="dropdown" style="margin-left: 300px;">
+                <button class="button dropbtn">player b<i class="fa fa-chevron-right"></i></button>
+                <div class="dropdown-content">
+                    <a onclick="color1 != '#f00' ? color2 = '#f00' : null" style="--clr:#f00;">red</a>
+                    <a onclick="color1 != '#0f0' ? color2 = '#0f0' : null" style="--clr:#0f0;">green</a>
+                    <a onclick="color1 != '#00f' ? color2 = '#00f' : null" style="--clr:#00f;">blue</a>
+                    <a onclick="color1 != '#f0f' ? color2 = '#f0f' : null" style="--clr:#f0f;">magenta</a>
+                    <a onclick="color1 != '#c9a0dc' ? color2 = '#c9a0dc' : null" style="--clr:#c9a0dc;">lilla</a>
+                    <a onclick="color1 != '#0ff' ? color2 = '#0ff' : null" style="--clr:#0ff;">skyblue</a>
+                    <a onclick="color1 != '#ff0' ? color2 = '#ff0' : null" style="--clr:#ff0;">yellow</a>
+                    <a onclick="color1 != '#fff' ? color2 = '#fff' : null" style="--clr:#fff;">white</a>
+                    <a onclick="color1 != '#000' ? color2 = '#000' : null" style="--clr:#000;">black</a>
+                </div>
+            </div>
+        </div>
+        <div style="width: 5%;"></div>
+    </div>
+        <div class="container noselect">
+            <div style="display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;">
+                <div style="display: flex; flex-direction:row;">
+                    <div style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;">
+                        <button class="button" id="replay" onclick="restart()">RESTART
+                            <i class="fa fa-refresh"></i>
+                        </button>
+                    </div>
+                    <div id="container" style="transform: translateY(-40px); z-index: 10;"></div>
+                </div>
+                <div>
+                    <div id="ui" style="transform:translateY(230px)">
+                        <h2 class="distance">moves</h2>
+                        <span class="scoring" id="moves">00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="author">
+                <h1>four in a row</h1> <span>BY</span><i>Marco Menegazzi</i>
+            </div>
+        </footer>
+</body>
+<script src="four.js"></script>
+</html>
