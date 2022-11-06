@@ -1,3 +1,4 @@
+import { Grid } from "./grid";
 const container = document.querySelector('#container'),
     canvas = document.createElement('canvas'),
     movesID = document.getElementById('moves')

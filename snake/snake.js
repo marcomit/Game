@@ -21,6 +21,7 @@ let container = document.querySelector('#canvas'),
     particle = [],
     ctx = canvas.getContext('2d'),
     playing = true;
+
 container.appendChild(canvas);
 
 // Main
@@ -61,6 +62,7 @@ setInterval(() => {
         if(particle.length == 0){end()}
     }
 }, 1000 / 12.5)
+// Classe SNAKE
 class Snake{
     constructor(){
         this.bodies = [
@@ -88,18 +90,10 @@ class Snake{
             ctx.fillStyle = `rgba(255, 255, 255, ` + opacity.toString() +')'
         }
     }
-    show(){
-        let size = 0;
-        for(let i = 0; i < this.bodies.length; i++){
-            ctx.fillStyle = this.color
-            ctx.fillRect(this.bodies[i].x + size, this.bodies[i].y + size, block - 2 * size, block - 2 * size)
-            size < 15 ? size += 0.2 : null;
-        }
-    }
     show2(){
         // Da perfezionare
         // La coda
-        let size = 0
+        /*let size = 0
         let position = {x: 0, y: 0, w: 0, h: 0}
         ctx.fillStyle = this.color
         ctx.fillRect(this.bodies[0].x, this.bodies[0].y, block, block)
@@ -112,6 +106,16 @@ class Snake{
             }
             size < 10 ? size += 0.2 : null;
             ctx.fillRect(position.x, position.y, position.w, position.h)
+        }*/
+        let color = this.color + 'aa'
+        ctx.shadowBlur = 40;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color
+        ctx.fillRect(this.bodies[0].x, this.bodies[0].y, block, block)
+        ctx.shadowBlur = 0;
+        for(let i = 0; i < this.bodies.length; i++){
+            ctx.fillStyle = color
+            ctx.fillRect(this.bodies[i].x, this.bodies[i].y, block, block)
         }
     }
     gradient(){
@@ -236,11 +240,8 @@ class Snake{
         else if(this.bodies[0].y > h - block){playing = false}
     }
     collision(){
-        for(let i = 3; i < this.bodies.length; i++){
-            if(this.bodies[0].x == this.bodies[i].x & this.bodies[0].y == this.bodies[i].y){
-                return true
-            }
-        }
+        for(let i = 3; i < this.bodies.length; i++)
+            if(this.bodies[0].x == this.bodies[i].x & this.bodies[0].y == this.bodies[i].y) return true
         return false
     }
     listen2(){
@@ -290,12 +291,15 @@ class Food{
         this.generate()
     }
     show(){
+    /*
         ctx.shadowBlur = block;
         ctx.shadowColor = this.color;
         ctx.fillStyle = this.color;
         ctx.fillRect(this.x, this.y, block, block);
         ctx.globalCompositeOperation = "source-over";
         ctx.shadowBlur = 0;
+    */
+        drawCircle(this.x + block/2, this.y + block/2, block/2, this.color)
     }
     spawn(){
         this.generate()
@@ -336,6 +340,19 @@ class Food{
                 this.color = 'rgb(255, 255, 0)'
         }
     }
+}
+function drawCircle(x, y, radius, color){
+    ctx.save()
+    ctx.beginPath()
+    ctx.shadowBlur = block;
+    ctx.shadowColor = color;
+    ctx.arc(x, y, radius, 0, 2 * Math.PI, false)
+    ctx.fillStyle = color
+    ctx.fill()
+    ctx.globalCompositeOperation = "source-over";
+    ctx.shadowBlur = 0;
+    ctx.closePath()
+    ctx.restore()
 }
 let snake = new Snake();
 let food = []

@@ -87,7 +87,8 @@ let gameMap = [],
     state = 'stopped';
 let nextShape = shapes[Math.floor(Math.random()*shapes.length)]
 let currentShape = shapes[Math.floor(Math.random()*shapes.length)];
-bottom = (shape, posX, posY) => {
+
+function bottom(shape, posX, posY){
     for(let i = 0; i < shape.length; i++){
         for(let j = 0; j < shape[i].length; j++){
             if(shape[i][j]==0)continue;
@@ -97,7 +98,7 @@ bottom = (shape, posX, posY) => {
     }
     return true;
 }
-right = (shape, posX, posY) => {
+function right(shape, posX, posY){
     for(let i = 0; i < shape.length; i++){
         for(let j = 0; j < shape[i].length; j++){
             if(shape[i][j]==0)continue;
@@ -107,7 +108,7 @@ right = (shape, posX, posY) => {
     }
     return true;
 }
-left = (shape, posX, posY) => {
+function left(shape, posX, posY){
     for(let i = 0; i < shape.length; i++){
         for(let j = 0; j < shape[i].length; j++){
             if(shape[i][j]==0)continue;
@@ -117,7 +118,7 @@ left = (shape, posX, posY) => {
     }
     return true;
 }
-listen = () => {
+function listen(){
     document.addEventListener('keydown', (event) => {
         if(event.keyCode == 37 | event.keyCode == 65)state = 'left'
         else if(event.keyCode == 38 | event.keyCode == 87)state = 'rotate'
@@ -126,45 +127,19 @@ listen = () => {
         else if(event.keyCode == 32)state = 'double down'
     })
 }
-rotate = (ShapeToRotate) => {
-    let shape = ShapeToRotate
-    if(shape.length == 3){
-        let angolo = shape[0][0];
-        let spigolo = shape[0][1];
-        shape[0][0] = shape[2][0];
-        shape[2][0] = shape[2][2];
-        shape[2][2] = shape[0][2];
-        shape[0][2] = angolo
-        shape[0][1] = shape[1][0];
-        shape[1][0] = shape[2][1];
-        shape[2][1] = shape[1][2];
-        shape[1][2] = spigolo
-    }
-    else if(shape.length == 4){
-        let angolo = shape[0][0],
-            spigolo1 = shape[1][0],
-            spigolo2 = shape[2][0],
-            spigolo3 = shape[1][1];
-        shape[0][0] = shape[3][0];
-        shape[3][0] = shape[3][3]
-        shape[3][3] = shape[0][3];
-        shape[0][3] = angolo
-        shape[1][0] = shape[3][1];
-        shape[3][1] = shape[2][3];
-        shape[2][3] = shape[0][2];
-        shape[0][2] = spigolo1
-        shape[2][0] = shape[3][2];
-        shape[3][2] = shape[1][3];
-        shape[1][3] = shape[0][1];
-        shape[0][1] = spigolo2
-        shape[1][1] = shape[2][1];
-        shape[2][1] = shape[2][2];
-        shape[2][2] = shape[1][2]
-        shape[1][2] = spigolo3;
+function rotate(ShapeToRotate){
+    let shape = []
+    let lines = []
+    for(let i = 0; i < ShapeToRotate.length; i++){
+      lines = []
+      for(let j = 0; j < ShapeToRotate[i].length; j++){
+        lines.push(ShapeToRotate[j][ShapeToRotate.length - 1 - i]);
+      }
+      shape.push(lines)
     }
     return shape;
 }
-move = () => {
+function move(){
     switch(state){
         case 'right':
             right(currentShape, realX + 3, realY) ? realX++ : null;
@@ -194,7 +169,7 @@ move = () => {
     }
     state = 'stopped'
 }
-checkRotate = (shape) => {
+function checkRotate(shape){
     for(let i = 0; i < shape.length; i++){
         for(let j = 0; j < shape[i].length; j++){
             if(shape[i][j]==0)continue;
@@ -207,20 +182,20 @@ checkRotate = (shape) => {
     }
     return true;
 }
-generateRandomShape = () => {
+function generateRandomShape(){
     realX = 0;
     realY = 0;
     currentShape = nextShape;
     nextShape = shapes[Math.floor(Math.random()*shapes.length)];
 }
-update = () => {
+function update(){
     if(appo >= FPS / FramePerSecondsShape){
         appo = 0;
         realY++
     }
     appo++;
 }
-insertShape = () => {
+function insertShape(){
     for(let i = 0; i < currentShape.length; i++){
         for(let j = 0; j < currentShape[i].length; j++){
             if(currentShape[i][j]==0)continue;
@@ -228,17 +203,16 @@ insertShape = () => {
         }
     }
 }
-drawShape = (shape, x, y) => {
-    for(let i = 0; i < shape.length; i++){
-        for(let j = 0; j < shape[i].length; j++){
-            if(shape[i][j]==0)continue;
+function drawShape(shape, x, y){
+    for(let i = 0; i < shape.length; i++)
+        for(let j = 0; j < shape[i].length; j++)
+            if(shape[i][j]!=0){
             ctx.fillStyle = color[shape[i][j] - 1]
-            ctx.fillRect((j + x)*block + 1,
-                        (i + y)*block + 1,
+            ctx.fillRect((j + x) * block + 1,
+                        (i + y) * block + 1,
                         block - 2,
                         block - 2)
-        }
-    }
+            }
 }
 drawShapeImage = (context, shape, x, y) => {
     for(let i = 0; i < shape.length; i++){
@@ -249,6 +223,7 @@ drawShapeImage = (context, shape, x, y) => {
         }
     }
 }
+
 drawAllShapes = () => {
     for(let i = 0; i < gameMap.length; i++){
         for(let j = 0; j < gameMap[i].length; j++){
@@ -439,15 +414,11 @@ setInterval(() => {
             }
             delay++;
         }
-        else{
-            update();
-        }
+        else update();
         move();
         listen()
         checkGameOver() ? playing = false: null;
         scoring();
     }
-    else{
-        drawEnd();
-    }
+    else drawEnd();
 }, 1000 / FPS);
