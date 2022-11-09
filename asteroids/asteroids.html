@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
         *{
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
+            text-transform: uppercase;
+            background:transparent;
+            color:#fff;
+            font-family: 'Poppins', sans-serif;
+            z-index: 10;
+            position: absolute;
+      }
         body{
             display: block;
             align-items: center;
             justify-content: center;
         }
+        canvas{
+          z-index:9;
+        }
         canvas:hover{
             cursor: crosshair;
             position: absolute;
+        }
+        button{
+          display: none;
+          border:none;
+          padding:none;
+        }
+        span{
+        margin-right: 100px;
+        }
+        p{
+          min-width: 400px;
+          z-index: 12;
         }
     </style>
 <head>
@@ -23,6 +45,10 @@
     <title>Document</title>
 </head>
 <body>
+    <p style="position:absolute;">
+      score: <span id="score">000</span>
+    <p style="translate: 120px 0px;">weapon: <span id="weapon" >default</span></p>
+    </p>
     <div id="container"></div>
 </body>
 <script src="asteroids.js"></script>
