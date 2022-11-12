@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
         *{
             margin: 0;
             padding: 0;
@@ -26,6 +26,7 @@
             position: absolute;
         }
         button{
+          position: absolute;
           display: none;
           border:none;
           padding:none;
@@ -47,9 +48,12 @@
 <body>
     <p style="position:absolute;">
       score: <span id="score">000</span>
-    <p style="translate: 120px 0px;">weapon: <span id="weapon" >default</span></p>
     </p>
+    <p style="translate: 120px 0px;">weapon: <span id="weapon" >default</span></p>
     <div id="container"></div>
+    <button onclick="start()" id="start">start</button>
+    <p id="gameover">asteroids</p>
+    <p id="scoreLabel">your score is <p id="scoring" style="position: absolute;">00</p></p>
 </body>
 <script src="asteroids.js"></script>
 </html>
