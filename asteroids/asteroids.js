@@ -245,6 +245,25 @@ class Particle{
     })
   }
 }
+class Ufo{
+  constructor(x, y){
+    this.x = x
+    this.y = y
+    this.width = 40
+    this.height = 20
+  }
+  draw(){
+    line(this.x - this.width/2, this.y, this.x + this.width/2, this.y);
+    line(this.x - this.width/2 + 10, this.y + 5, this.x + this.width/2 - 10, this.y + 5);
+    line(this.x - this.width/2 + 10, this.y - 5, this.x + this.width/2 - 10, this.y - 5);
+    line(this.x - this.width/2 + 15, this.y - 10, this.x + this.width/2 - 15, this.y - 10);
+    line(this.x - this.width/2, this.y, this.x - this.width/2 + 10, this.y - 5);
+    line(this.x + this.width/2, this.y, this.x + this.width/2 - 10, this.y - 5);
+  }
+  move(){
+
+  }
+}
 function start(){
   playing = true
   scoreFormatting = "";
@@ -288,6 +307,7 @@ function gameover(){
 let playing = false
 let generateParticlesEnd = true;
 let spacecraft = new Spacecraft();
+let ufo = new Ufo(w/2, h/2);
 let particles = new Particle(100);
 let debris = [new Debris(5, 100)]
 debris[0].x = w/2 - 200;
@@ -299,6 +319,7 @@ setInterval(()=>{
       debri.draw()
     })
     format()
+    ufo.draw()
     if(playing){
       spacecraft.draw();
       generateParticlesEnd = true;
