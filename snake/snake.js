@@ -87,7 +87,7 @@ class Snake{
         for(let i = 0; i < this.bodies.length; i++){
             ctx.fillRect(this.bodies[i].x, this.bodies[i].y, block, block)
             opacity >= 0.5 ? opacity -= 0.02 : null;
-            ctx.fillStyle = `rgba(255, 255, 255, ` + opacity.toString() +')'
+            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`
         }
     }
     show2(){

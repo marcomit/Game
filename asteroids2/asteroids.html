@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <style>canvas{cursor: crosshair;}</style>
+    <head>
+        <title>Game - Tetris</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../main.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="icon" href="logo.svg">
+    </head>
+    <body>
+        <header style="align-items: center;">
+            <div class="menu"><a href="../tetris/tetris.html">tetris</a><div class="active"></div></div>
+            <div class="menu"><a href="../snake/snake.html">snake</a><div></div></div>
+            <div class="menu active"><a href="../animation/main.html">animation</a><div></div></div>
+            <div class="menu"><a href="../pong/pong.html">pong</a><div></div></div>
+            <div class="menu"><a href="#">four in row</a><div></div></div>
+        </header>
+        <div style="display: flex; height: 80px; width: 100%;
+    justify-content: space-between;
+    align-items: center;">
+            <a class="btn-back rotate" href="../../main.html"><i class="fa fa-chevron-left"></i></a>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="container noselect" style="transform: translateY(-50px);">
+            <div style="display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-content: center;
+            justify-content: center;">
+                <div style="display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;">
+                    <button class="button" id="replay" onclick="restart()">RESTART</button>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <div style="display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column; transform: rotate(90deg);">
+                        <button class="button"onclick="start()">START
+                        </button>
+                    </div>
+                    <div id="container"></div>
+                </div>
+                <div>
+                    <div id="ui">
+                        <h2 class="distance">highscore</h2>
+                        <span class="scoring" id="maxscore">00</span>
+                        <h2>SCORE
+                        </h2>
+                        <span class="scoring" id="score">00</span>
+                        <h2>lines</h2><span class="scoring" id="lines">00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div id="author">
+                <h1>asteroids</h1> <span>BY</span><i>Marco Menegazzi</i>
+              </div>
+        </footer>
+    </body>
+    <script src="asteroids.js"></script>
+</html>
