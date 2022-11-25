@@ -287,7 +287,9 @@ function deleteItem(list, index) {
 function distance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
+// ! Events
 document.addEventListener('mousemove', (e) => { spacecraft.mouseX = e.x; spacecraft.mouseY = e.y })
+document.addEventListener('click', () => { spacecraft.insert = true })
 class Spacecraft {
     constructor() {
         this.angle = 0
@@ -342,7 +344,6 @@ class Spacecraft {
         this.y += diagonal > distanceToCursor ? Math.sin(this.angle) * this.speed : 0;
     }
     shot() {// Crea un nuovo colpo ogni volta che clicco sullo schermo e lo cancella quando ha percorso una certa distanza
-        window.addEventListener('click', () => { this.insert = true })
         let day = new Date();
         if (this.insert & now - WEAPON[weaponIndex].lastShot > WEAPON[weaponIndex].delay) {
             if (day.getSeconds() - lastShot > 10) weaponIndex = 0;
