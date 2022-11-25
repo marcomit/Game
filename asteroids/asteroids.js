@@ -39,7 +39,7 @@ distanceToCursor = 25,
                 let anglec = -Math.sin(
                     angle(spacecraft.x, spacecraft.y, debris[indexDebri].x, debris[indexDebri].y) -
                     angle(shot[index].x, shot[index].y, debris[indexDebri].x, debris[indexDebri].y));
-                debris[indexDebri].rotation += anglec * PI/90
+                debris[indexDebri].rotation += anglec * PI / 90
                 if (debris[indexDebri].length > 20) {
                     score += 10
                     debris[indexDebri].length -= 15;
@@ -69,9 +69,9 @@ distanceToCursor = 25,
         {
             name: 'laser'.toUpperCase(),
             speed: 20,
-            width: 100,
+            width: 40,
             color: '#0ff',
-            blur: 10,
+            blur: 100,
             lineWidth: 3,
             deleteShot: true,
             delay: 500,
@@ -82,7 +82,7 @@ distanceToCursor = 25,
                 let anglec = -Math.sin(
                     angle(spacecraft.x, spacecraft.y, debris[indexDebri].x, debris[indexDebri].y) -
                     angle(shot[index].x, shot[index].y, debris[indexDebri].x, debris[indexDebri].y));
-                debris[indexDebri].rotation += anglec * PI/90
+                debris[indexDebri].rotation += anglec * PI / 90
                 if (debris[indexDebri].length > 30) {
                     score += 10
                     debris[indexDebri].length -= 10;
@@ -137,7 +137,7 @@ distanceToCursor = 25,
         {
             name: 'speed'.toUpperCase(),
             speed: 4,
-            width: 20,
+            width: 100,
             color: '#f80',
             blur: 40,
             lineWidth: 3,
@@ -150,7 +150,7 @@ distanceToCursor = 25,
                 let anglec = -Math.sin(
                     angle(spacecraft.x, spacecraft.y, debris[indexDebri].x, debris[indexDebri].y) -
                     angle(shot[index].x, shot[index].y, debris[indexDebri].x, debris[indexDebri].y));
-                debris[indexDebri].rotation += anglec * PI/90
+                debris[indexDebri].rotation += anglec * PI / 90
                 if (debris[indexDebri].length > 30) {
                     score += 10
                     debris[indexDebri].length -= 10;
@@ -181,22 +181,22 @@ distanceToCursor = 25,
             speed: 4,
             width: 20,
             color: '#0f0',
-            blur: 40,
+            blur: 100,
             lineWidth: 3,
             deleteShot: true,
             delay: 500,
             lastShot: 0,
             shotToPush: function (shot, x, y, angle) {
                 shot.push(new Shot(x, y, angle, weaponIndex));
-                shot.push(new Shot(x, y, angle - PI / 8, weaponIndex));
-                shot.push(new Shot(x, y, angle + PI / 8, weaponIndex));
+                shot.push(new Shot(x, y, angle - PI / 16, weaponIndex));
+                shot.push(new Shot(x, y, angle + PI / 16, weaponIndex));
             },
             collisionDebris: function (shot, index, indexDebri) {
                 particles.generateFirework(shot[index].x, shot[index].y, 10)
                 let anglec = -Math.sin(
                     angle(spacecraft.x, spacecraft.y, debris[indexDebri].x, debris[indexDebri].y) -
                     angle(shot[index].x, shot[index].y, debris[indexDebri].x, debris[indexDebri].y));
-                debris[indexDebri].rotation += anglec * PI/90
+                debris[indexDebri].rotation += anglec * PI / 90
                 if (debris[indexDebri].length > 30) {
                     score += 10
                     debris[indexDebri].length -= 10;
@@ -351,6 +351,7 @@ class Spacecraft {
             WEAPON[weaponIndex].shotToPush(this.shooting, this.x, this.y, this.angle);
             this.insert = false;
         }
+        console.log(this.shooting.length)
         for (let i = 0; i < this.shooting.length; i++) {
             this.shooting[i].draw();
             // Collision ufo
@@ -359,16 +360,17 @@ class Spacecraft {
                 if (this.shooting.length == 0) break;
             }
             // Collision debris
-            let debrisCollisioned = this.shooting[i].collision();
+            let debrisCollisioned = this.shooting[i] != undefined ? this.shooting[i].collision() : -1;
             if (debrisCollisioned != -1) {// Entra se ha colpito un asteroide
                 WEAPON[weaponIndex].collisionDebris(this.shooting, i, debrisCollisioned)
                 if (this.shooting.length == 0) break;
             }
             if (i >= 0)
-                if (this.shooting[i].walls()) {
-                    deleteItem(this.shooting, i)
-                    if (this.shooting.length == 0) break;
-                }
+                if (this.shooting[i] != undefined)
+                    if (this.shooting[i].walls()) {
+                        deleteItem(this.shooting, i)
+                        if (this.shooting.length == 0) break;
+                    }
         }
     }
 }
@@ -637,7 +639,6 @@ setInterval(() => {
             ammo = null;
         }
     }
-    console.log(debris.length)
     format()
     if (ufo.health > 0) ufo.draw()
     if (playing) {
