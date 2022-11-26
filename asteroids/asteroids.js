@@ -21,7 +21,7 @@ const container = document.querySelector('#container'),
         'rgb(25, 230, 0)',
         'rgb(0, 255, 0)'
     ]
-distanceToCursor = 25,
+    distanceToCursor = 25,
     WEAPON = [
         {
             name: 'default'.toUpperCase(),
@@ -69,7 +69,7 @@ distanceToCursor = 25,
         {
             name: 'laser'.toUpperCase(),
             speed: 20,
-            width: 40,
+            width: 100,
             color: '#0ff',
             blur: 100,
             lineWidth: 3,
@@ -137,7 +137,7 @@ distanceToCursor = 25,
         {
             name: 'speed'.toUpperCase(),
             speed: 4,
-            width: 100,
+            width: 20,
             color: '#f80',
             blur: 40,
             lineWidth: 3,
@@ -333,10 +333,11 @@ class Spacecraft {
         //Calcola l'angolo tra il puntatore e la navicella e risale alle direzioni
         let diagonal = 0;
         let day = new Date().getSeconds();
-        if (weaponIndex > 0 & 10 - (day - lastShot) >= 0) {
+        let timeShot = lastShot > day ? 60 - lastShot : lastShot
+        if (weaponIndex > 0 & 10 - (day - timeShot) >= 0) {
             ctx.font = '15px Poppins'
-            ctx.fillStyle = color[10 - (day - lastShot)]
-            ctx.fillText(`${10 - (day - lastShot)}`, this.mouseX + 5, this.mouseY - 5, 400);
+            ctx.fillStyle = color[10 - (day - timeShot)]
+            ctx.fillText(`${10 - (day - timeShot)}`, this.mouseX + 5, this.mouseY - 5, 400);
         }
         diagonal = distance(this.x, this.y, this.mouseX, this.mouseY);
         this.angle = angle(this.x, this.y, this.mouseX, this.mouseY)
@@ -346,6 +347,7 @@ class Spacecraft {
     shot() {// Crea un nuovo colpo ogni volta che clicco sullo schermo e lo cancella quando ha percorso una certa distanza
         let day = new Date();
         if (this.insert & now - WEAPON[weaponIndex].lastShot > WEAPON[weaponIndex].delay) {
+            if(lastShot > day.getSeconds())lastShot = 60 - lastShot
             if (day.getSeconds() - lastShot > 10) weaponIndex = 0;
             WEAPON[weaponIndex].lastShot = now;
             WEAPON[weaponIndex].shotToPush(this.shooting, this.x, this.y, this.angle);
@@ -425,8 +427,8 @@ class Debris {
         this.length = length
         this.x = Math.floor(Math.random()) == 0 ? Math.random() * w : 0
         this.y = this.x > 0 ? 0 : Math.random() * h
-        this.dX = Math.random() * .2 - .1
-        this.dY = Math.random() * .2 - .1
+        this.dX = Math.random() * .15 - .075
+        this.dY = Math.random() * .15 - .075
         this.rotation = Math.random() * PI / 180 - PI / 360
         this.generate()
     }
@@ -509,7 +511,7 @@ class Ufo {
         this.height = 15
         this.health = 4
         this.directionTime = Math.random() * 100 + 200;
-        this.speed = 1.5
+        this.speed = 1
         this.angle = PI / 8 * Math.floor(Math.random() * 8)
         this.dX = Math.cos(this.angle) * this.speed;
         this.dY = Math.sin(this.angle) * this.speed;
